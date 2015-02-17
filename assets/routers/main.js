@@ -3,6 +3,7 @@ var React = require('react');
 
 var Controller = require('./../controller.jsx');
 var AppComponent = require('./../components/app.jsx');
+var HomeComponent = require('./../components/home.jsx');
 var UsersComponent = require('./../components/users.jsx');
 var ProductsComponent = require('./../components/products.jsx');
 
@@ -14,8 +15,14 @@ module.exports = Backbone.Router.extend({
 
 	},
 	routes: {
+		"/": "home",
+		"": "home",
 		"users": "showUsers",
-		"products": "showProducts"
+		"products": "showProducts",
+		"*path": "home"
+	},
+	home: function(){
+		return this.renderApp(HomeComponent);
 	},
 	showUsers: function() {
 		return this.renderApp(UsersComponent, {

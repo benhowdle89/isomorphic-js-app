@@ -17,7 +17,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<HeaderComponent />
-				{<this.props.component collection={this.processCollections()}/>}
+				{(this.props.component) && <this.props.component collection={this.processCollections()}/>}
 				<FooterComponent />
 			</div>
 		);
