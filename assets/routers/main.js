@@ -30,10 +30,10 @@ module.exports = Backbone.Router.extend({
 			component: component,
 			collection: collections || {},
 			model: models || {}
-		})
+		});
 		if (typeof window === 'undefined') {
 			return React.renderToString(appComponent);
 		}
-		React.render(appComponent, document.body);
+		return React.render(appComponent, document.querySelector('main'));
 	}
 });

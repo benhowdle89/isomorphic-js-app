@@ -5,13 +5,18 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
 
-require('node-jsx').install()
+require('node-jsx').install();
+
+hbs.registerHelper('json', function(value){
+	return JSON.stringify(value);
+});
 
 // kick off the app
 var app = express();
 
 // internal requires
 var controller = require('./assets/controller.jsx');
+var api = require('./api');
 
 // allows cookies/json data to be parsed
 app.use(bodyParser.urlencoded({
@@ -27,6 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // port config
 app.set('port', process.env.PORT || 5000);
+
+app.get('/api/products', api.getProducts);
 
 app.use(controller.init.bind(controller));
 

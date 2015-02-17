@@ -5,12 +5,12 @@ var BackboneMixin = require('backbone-react-component');
 module.exports = React.createClass({
 	mixins: [BackboneMixin],
 	componentWillMount: function(){
-		this.getCollection().products.add({
-			name: "Apples"
-		});
-		this.setState({
-			products: this.getCollection().products
-		});
+		this.getCollection().products.on('reset', function(){
+			this.setState({
+				products: this.getCollection().products
+			});
+		}.bind(this));
+		this.getCollection().products.bootstrap();
 	},
 	removeProduct: function(product){
 		this.getCollection().products.remove(product);
@@ -23,7 +23,7 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		return (
-			<p>PRODUCTS: <ul>{this.state.products.map(this.createProduct)}</ul></p>
+			<p>PRODUCTS: <ul>{(this.state.products) && this.state.products.map(this.createProduct)}</ul></p>
 		);
 	}
 });
