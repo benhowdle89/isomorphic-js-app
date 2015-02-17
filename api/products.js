@@ -1,11 +1,11 @@
 module.exports = {
 	get: function(callback) {
 		callback(null, [{
-			name: "Neo"
+			name: "Soap"
 		}, {
-			name: "Morpheus"
+			name: "Water"
 		}, {
-			name: "Trinity"
+			name: "Shaving cream"
 		}]);
 	}
 };

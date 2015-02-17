@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', process.env.PORT || 5000);
 
 app.get('/api/products', api.getProducts);
+app.get('/api/users', api.getUsers);
 
 app.use(controller.init.bind(controller));
 

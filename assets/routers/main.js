@@ -7,6 +7,7 @@ var UsersComponent = require('./../components/users.jsx');
 var ProductsComponent = require('./../components/products.jsx');
 
 var ProductsCollection = require('./../collections/products');
+var UsersCollection = require('./../collections/users');
 
 module.exports = Backbone.Router.extend({
 	initialize: function() {
@@ -17,7 +18,9 @@ module.exports = Backbone.Router.extend({
 		"products": "showProducts"
 	},
 	showUsers: function() {
-		return this.renderApp(UsersComponent);
+		return this.renderApp(UsersComponent, {
+			users: UsersCollection
+		});
 	},
 	showProducts: function() {
 		return this.renderApp(ProductsComponent, {

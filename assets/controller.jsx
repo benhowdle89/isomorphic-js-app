@@ -5,12 +5,19 @@ var AppComponent = require('./components/app.jsx');
 var MainRouter = require('./routers/main');
 var Bootstrap = require('./bootstrap');
 var ProductsAPI = require('./../api/products');
+var UsersAPI = require('./../api/users');
 
 var apiMap = {
 	showProducts: function() {
 		return {
 			name: "products",
 			fetch: ProductsAPI.get
+		};
+	},
+	showUsers: function() {
+		return {
+			name: "users",
+			fetch: UsersAPI.get
 		};
 	}
 };
@@ -26,12 +33,18 @@ module.exports = {
 		}.bind(this));
 		Backbone.history.loadUrl(req.url);
 	},
+	getMapRouteFromRoute: function(route) {
+		return apiMap[route];
+	},
 	bootstrap: function(route, callback) {
 		var mapRoute;
-		if (mapRoute = apiMap[route]) {
+		if (mapRoute = this.getMapRouteFromRoute(route)) {
 			mapRoute().fetch(function(err, data) {
-				Bootstrap[apiMap[route]().name] = data;
-				callback(data);
+				var name = mapRoute().name;
+				Bootstrap[name] = data;
+				var obj = {};
+				obj[name] = data;
+				callback(obj);
 			}.bind(this));
 		} else {
 			callback(null);

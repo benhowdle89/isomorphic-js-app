@@ -6,9 +6,12 @@ module.exports = Backbone.Collection.extend({
 		if (typeof window === 'undefined') {
 			this.reset(this.fetchData(this.name));
 		} else {
-			if (typeof BOOTSTRAP !== 'undefined') {
-				return this.reset(BOOTSTRAP);
+			if (typeof BOOTSTRAP !== 'undefined' && BOOTSTRAP[this.name]) {
+				return this.reset(BOOTSTRAP[this.name]);
 			}
+			this.on('reset', function() {
+				BOOTSTRAP[this.name] = this.toJSON();
+			}.bind(this));
 			return this.fetch({
 				reset: true
 			});
