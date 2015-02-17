@@ -20,9 +20,9 @@ module.exports = Backbone.Router.extend({
 		return this.renderApp(UsersComponent);
 	},
 	showProducts: function() {
-		var collections = {};
-		collections.products = ProductsCollection;
-		return this.renderApp(ProductsComponent, collections);
+		return this.renderApp(ProductsComponent, {
+			products: ProductsCollection
+		});
 	},
 	renderApp: function(component, collections, models) {
 		var appComponentFactory = React.createFactory(AppComponent);
