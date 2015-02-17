@@ -6,6 +6,8 @@ var AppComponent = require('./../components/app.jsx');
 var UsersComponent = require('./../components/users.jsx');
 var ProductsComponent = require('./../components/products.jsx');
 
+var ProductsCollection = require('./../collections/products');
+
 module.exports = Backbone.Router.extend({
 	initialize: function() {
 
@@ -17,16 +19,21 @@ module.exports = Backbone.Router.extend({
 	showUsers: function() {
 		return this.renderApp(UsersComponent);
 	},
-	showProducts: function(){
-		return this.renderApp(ProductsComponent);
+	showProducts: function() {
+		var collections = {};
+		collections.products = ProductsCollection;
+		return this.renderApp(ProductsComponent, collections);
 	},
-	renderApp: function(component){
-		if(typeof window === 'undefined'){
-			var appComponentFactory = React.createFactory(AppComponent);
-			return React.renderToString(appComponentFactory({
-				component: component
-			}));
+	renderApp: function(component, collections, models) {
+		var appComponentFactory = React.createFactory(AppComponent);
+		var appComponent = appComponentFactory({
+			component: component,
+			collection: collections || {},
+			model: models || {}
+		})
+		if (typeof window === 'undefined') {
+			return React.renderToString(appComponent);
 		}
-		React.render(<AppComponent component={component} />, document.body);
+		React.render(appComponent, document.body);
 	}
 });

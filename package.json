@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "backbone": "^1.1.2",
+    "backbone-react-component": "^0.7.3",
     "body-parser": "^1.12.0",
     "express": "^4.11.2",
     "hbs": "^2.8.0",
