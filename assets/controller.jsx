@@ -40,9 +40,9 @@ module.exports = {
 		var mapRoute;
 		if (mapRoute = this.getMapRouteFromRoute(route)) {
 			mapRoute().fetch(function(err, data) {
-				var name = mapRoute().name;
+				var name = mapRoute().name,
+					obj = {};
 				Bootstrap[name] = data;
-				var obj = {};
 				obj[name] = data;
 				callback(obj);
 			}.bind(this));
